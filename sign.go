@@ -45,6 +45,7 @@ var upgradeParams = []upgradeParam{
 	{280000, []byte{0xBB, 0x09, 0xB8, 0x76}},
 	{653600, []byte{0x60, 0x0E, 0xB4, 0x2B}},
 	{903000, []byte{0x0B, 0x23, 0xB9, 0xF5}},
+	{1046400, []byte{0xA6, 0x75, 0xFF, 0xE9}},
 }
 
 // RawTxInSignature returns the serialized ECDSA signature for the input idx of
@@ -151,6 +152,12 @@ func sigHashKey(activationHeight uint32) []byte {
 	}
 
 	return append([]byte(blake2BSigHash), upgradeParams[i].BranchID...)
+}
+
+// Blake2bSignatureHash export
+func Blake2bSignatureHash(subScript []byte, sigHashes *txscript.TxSigHashes,
+	hashType txscript.SigHashType, tx *MsgTx, idx int, amt int64) ([]byte, error) {
+	return blake2bSignatureHash(subScript, sigHashes, hashType, tx, idx, amt)
 }
 
 // blake2bSignatureHash
@@ -393,7 +400,7 @@ func signMultiSig(
 		}
 
 	}
-
+	builder.AddData(subScript)
 	script, _ := builder.Script()
 	return script, signed == nRequired
 }

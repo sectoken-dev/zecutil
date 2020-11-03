@@ -40,7 +40,7 @@ const (
 // activation levels are used for testnet because mainnet is already updated
 // TODO: need implement own complete chain params and use them
 var upgradeParams = []upgradeParam{
-	{0, []byte{0x00, 0x00, 0x00, 0x00}},
+	{0, []byte{0xA6, 0x75, 0xFF, 0xE9}},
 	{207500, []byte{0x19, 0x1B, 0xA8, 0x5B}},
 	{280000, []byte{0xBB, 0x09, 0xB8, 0x76}},
 	{653600, []byte{0x60, 0x0E, 0xB4, 0x2B}},
